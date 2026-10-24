@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dana Infak STAND HC</title>
+
+<style>
+:root {
+  --blue: #153e75;
+  --gold: #f2c94c;
+  --ink: #172033;
+  --muted: #667085;
+  --bg: #f4f7fb;
+  --line: #e5eaf1;
+  --green: #16835b;
+  --red: #b42318;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, Arial, sans-serif;
+}
+
+header {
+  background: linear-gradient(120deg, #102d57, #1b5790);
+  color: white;
+  padding: 28px 16px 34px;
+  text-align: center;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #07152b;
+  border: 1px solid #d8ad31;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+h1 {
+  margin: 10px 0 4px;
+  font-size: clamp(24px, 5vw, 34px);
+}
+
+header p {
+  margin: 0;
+  color: #e0e9f7;
+}
+
+main {
+  max-width: 1050px;
+  margin: -16px auto 40px;
+  padding: 0 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 16px #17345d0a;
+  margin-bottom: 14px;
+}
+
+.metric small {
+  color: var(--muted);
+}
+
+.metric strong {
+  display: block;
+  font-size: clamp(21px, 4vw, 29px);
+  margin-top: 4px;
+}
+
+.gold { color: #9b6b00; }
+.green { color: var(--green); }
+.red { color: var(--red); }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.bank {
+  display: grid;
+  grid-template-columns: 1fr 145px;
+  gap: 14px;
+  align-items: center;
+}
+
+.qr {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.account {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+
+label {
+  display: block;
+  font-weight: 650;
+  font-size: 14px;
+  margin: 12px 0 5px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+}
+
+textarea {
+  min-height: 74px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  background: var(--blue);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #eaf0f8;
+  color: var(--blue);
+}
+
+button.danger {
+  background: #fff0ee;
+  color: var(--red);
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.notice {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #fff2cc;
+  color: #805b00;
+  font-weight: 750;
+}
+
+.status.APPROVED {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.REJECTED {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+th {
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tablewrap {
+  overflow-x: auto;
+}
+
+.record-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.record-actions button {
+  padding: 7px 9px;
+  font-size: 12px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.message {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #edf6ff;
+  margin-top: 10px;
+  display: none;
+}
+
+.message.error {
+  background: #fff0ee;
+  color: var(--red);
+}
+
+.sectionhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sectionhead h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 20px;
+}
+
+@media(max-width:720px) {
+  .grid,
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bank {
+    grid-template-columns: 1fr 115px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  th, td {
+    padding: 8px 6px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="stand-hc-logo.png"
+         alt="Logo STAND Handball Club">
+  </div>
+
+  <h1>Dana Infak Bola Baling</h1>
+  <p>STAND Handball Club · Telus, tersusun dan disahkan admin</p>
+</header>
+
+<main>
+
+  <section class="grid">
+    <div class="card metric">
+      <small>Jumlah infak diluluskan</small>
+      <strong class="green" id="income">RM 0.00</strong>
+    </div>
+
+    <div class="card metric">
+      <small>Jumlah perbelanjaan diluluskan</small>
+      <strong class="red" id="expense">RM 0.00</strong>
+    </div>
+
+    <div class="card metric">
+      <small>Baki dana semasa</small>
+      <strong class="gold" id="balance">RM 0.00</strong>
+    </div>
+  </section>
+
+  <section class="layout">
+
+    <div class="card">
+      <h2>Salurkan infak</h2>
+
+      <div class="bank">
+        <div>
+          <div class="notice">Pindahan bank / QR Maybank</div>
+          <div style="font-weight:700;margin-top:7px">MAYBANK</div>
+          <div class="account">1630 4656 0244</div>
+          <div style="font-size:14px">
+            Siti Zaliha Binti Baharud
+          </div>
+
+          <div class="row">
+            <button class="secondary"
+                    onclick="copyAccount()">
+              Salin nombor akaun
+            </button>
+          </div>
+        </div>
+
+        <img class="qr"
+             src="maybank-qr.jpg"
+             alt="QR Maybank untuk menerima infak"
+             onclick="window.open(this.src,'_blank')">
+      </div>
+
+      <p class="notice">
+        Selepas membuat pindahan, isi rekod di bawah.
+        Rekod hanya masuk dalam jumlah rasmi selepas admin mengesahkannya.
+      </p>
+
+      <form id="submitForm">
+
+        <label for="type">Jenis rekod</label>
+        <select id="type">
+          <option value="INCOME">Infak masuk</option>
+          <option value="EXPENSE">Penggunaan dana</option>
+        </select>
+
+        <label for="submitter">Nama penyumbang / pemohon</label>
+        <input id="submitter"
+               maxlength="100"
+               placeholder="Contoh: Hamba Allah">
+
+        <label for="amount">Jumlah (RM)</label>
+        <input id="amount"
+               type="number"
+               min="0.01"
+               max="10000000"
+               step="0.01"
+               required
+               placeholder="0.00">
+
+        <label for="description">Keterangan / tujuan</label>
+        <textarea id="description"
+                  maxlength="300"
+                  required
+                  placeholder="Contoh: Infak Jumaat / yuran pertandingan"></textarea>
+
+        <label for="reference">Rujukan transaksi</label>
+        <input id="reference"
+               maxlength="100"
+               placeholder="No. rujukan bank atau TIADA">
+
+        <label for="receipt">
+          Muat naik resit / bukti (maksimum 5 MB)
+        </label>
+        <input id="receipt"
+               type="file"
+               accept="image/jpeg,image/png,image/webp,application/pdf">
+
+        <div class="row">
+          <button id="submitBtn" type="submit">
+            Hantar untuk semakan
+          </button>
+        </div>
+
+        <div id="submitMsg" class="message"></div>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="sectionhead">
+        <h2>Rekod dana terkini</h2>
+        <button class="secondary" onclick="loadSummary()">
+          Muat semula
+        </button>
+      </div>
+
+      <p class="notice">
+        Paparan awam hanya menunjukkan rekod yang diluluskan.
+      </p>
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tarikh</th>
+              <th>Butiran</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+
+          <tbody id="publicRows">
+            <tr>
+              <td colspan="3">Memuatkan rekod...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <div class="sectionhead">
+      <h2>Panel Admin</h2>
+      <button class="secondary"
+              id="adminToggle"
+              onclick="toggleAdmin()">
+        Log masuk admin
+      </button>
+    </div>
+
+    <div id="adminLogin" class="hidden">
+
+      <label for="pin">PIN admin</label>
+      <input id="pin"
+             type="password"
+             autocomplete="current-password"
+             placeholder="Masukkan PIN admin">
+
+      <label for="reviewer">Nama admin</label>
+      <input id="reviewer"
+             maxlength="100"
+             value="Admin STAND HC">
+
+      <div class="row">
+        <button onclick="adminLogin()">
+          Buka rekod untuk semakan
+        </button>
+
+        <button class="secondary" onclick="adminLogout()">
+          Log keluar
+        </button>
+      </div>
+
+      <p class="notice">
+        Jangan kongsi PIN admin dengan penyumbang.
+      </p>
+
+      <div id="adminMsg" class="message"></div>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+
+      <div class="sectionhead">
+        <p class="notice">
+          Semak rekod pending. Luluskan transaksi yang telah disahkan
+          dan tolak rekod yang tidak sah.
+        </p>
+
+        <button class="secondary" onclick="loadAdmin()">
+          Muat semula
+        </button>
+      </div>
+
+      <div class="row" style="align-items:end">
+
+        <div style="min-width:160px;flex:1">
+          <label for="reportMonth">Bulan laporan PDF</label>
+          <input id="reportMonth" type="month">
+        </div>
+
+        <button onclick="makePdf()">Jana laporan PDF</button>
+
+        <button class="secondary" onclick="makeExcel()">
+          Export Excel (.xlsx)
+        </button>
+      </div>
+
+      <div id="reportMsg" class="message"></div>
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Tarikh / ID</th>
+              <th>Jenis / penghantar</th>
+              <th>Butiran / rujukan</th>
+              <th>Jumlah</th>
+              <th>Status / tindakan</th>
+            </tr>
+          </thead>
+
+          <tbody id="adminRows">
+            <tr>
+              <td colspan="5">Log masuk untuk melihat rekod.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    STAND HC · Sistem rekod infak komuniti.
+    Transaksi bank perlu disahkan secara manual oleh admin.
+  </footer>
+
+</main>
+
+<script>
+/* GANTIKAN DENGAN URL WEB APP ANDA */
+const API_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+
+let adminPin = '';
+
+function money(n) {
+  return 'RM ' + Number(n || 0).toLocaleString('en-MY', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function dateText(s) {
+  if (!s) return '-';
+
+  const d = new Date(s);
+
+  return isNaN(d)
+    ? '-'
+    : d.toLocaleDateString('ms-MY', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+}
+
+function escapeHtml(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  }[c]));
+}
+
+function apiReady() {
+  if (!API_URL.startsWith('https://script.google.com/')) {
+    alert('Sila masukkan URL Web App dalam index.html.');
+    return false;
+  }
+
+  return true;
+}
+
+function getJsonp(params) {
+  return new Promise((resolve, reject) => {
+    const cb = 'cb_' + Math.random().toString(36).slice(2);
+    const script = document.createElement('script');
+
+    const timer = setTimeout(() => {
+      cleanup();
+      reject(new Error('Masa menunggu tamat. Cuba lagi.'));
+    }, 15000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cb];
+      script.remove();
+    }
+
+    window[cb] = data => {
+      cleanup();
+      resolve(data);
+    };
+
+    script.onerror = () => {
+      cleanup();
+      reject(new Error('Tidak dapat menyambung ke Google Sheets.'));
+    };
+
+    script.src = API_URL + '?' +
+      new URLSearchParams({
+        ...params,
+        callback: cb
+      }).toString();
+
+    document.body.appendChild(script);
+  });
+}
+
+/*
+ * POST menggunakan no-cors tidak dapat membaca respons server.
+ * Selepas penghantaran, semak rekod di Google Sheets untuk
+ * memastikan permohonan benar-benar diterima.
+ */
+async function post(params) {
+  const body = new URLSearchParams(params);
+
+  await fetch(API_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    },
+    body
+  });
+
+  return { ok: true };
+}
+
+function fileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => resolve(reader.result);
+
+    reader.onerror = () => {
+      reject(new Error('Tidak dapat membaca fail resit.'));
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+async function getAdminAction(action, extra = {}) {
+  return getJsonp({
+    action,
+    pin: adminPin,
+    ...extra
+  });
+}
+
+function showMsg(id, msg, error = false) {
+  const el = document.getElementById(id);
+
+  el.textContent = msg;
+  el.className = 'message' + (error ? ' error' : '');
+  el.style.display = 'block';
+}
+
+async function loadSummary() {
+  if (!apiReady()) return;
+
+  try {
+    const d = await getJsonp({ action: 'summary' });
+
+    if (!d.ok) throw Error(d.error || 'Ralat');
+
+    document.getElementById('income').textContent =
+      money(d.summary.income);
+
+    document.getElementById('expense').textContent =
+      money(d.summary.expense);
+
+    document.getElementById('balance').textContent =
+      money(d.summary.balance);
+
+    const rows = d.records || [];
+
+    document.getElementById('publicRows').innerHTML =
+      rows.length
+        ? rows.map(r => `
+          <tr>
+            <td>${dateText(r.createdAt)}</td>
+            <td>
+              <b>${r.type === 'INCOME'
+                ? 'Infak masuk'
+                : 'Penggunaan dana'}</b><br>
+              ${escapeHtml(r.description)}<br>
+              <span class="notice">
+                ${escapeHtml(r.submitter || 'Hamba Allah')}
+              </span>
+            </td>
+            <td class="${r.type === 'INCOME' ? 'green' : 'red'}">
+              ${r.type === 'INCOME' ? '+' : '−'}${money(r.amount)}
+            </td>
+          </tr>
+        `).join('')
+        : '<tr><td colspan="3">Belum ada rekod diluluskan.</td></tr>';
+
+  } catch (e) {
+    document.getElementById('publicRows').innerHTML =
+      `<tr><td colspan="3">${escapeHtml(e.message)}</td></tr>`;
+  }
+}
+
+document.getElementById('submitForm').addEventListener(
+  'submit',
+  async e => {
+    e.preventDefault();
+
+    if (!apiReady()) return;
+
+    const type = document.getElementById('type').value;
+    const receiptFile = document.getElementById('receipt').files[0];
+
+    if (receiptFile && receiptFile.size > 5 * 1024 * 1024) {
+      showMsg('submitMsg', 'Fail resit melebihi 5 MB.', true);
+      return;
+    }
+
+    const params = {
+      action: 'submit',
+      type,
+      submitter:
+        document.getElementById('submitter').value || 'Hamba Allah',
+      amount: document.getElementById('amount').value,
+      description: document.getElementById('description').value,
+      reference: document.getElementById('reference').value
+    };
+
+    if (
+      type === 'INCOME' &&
+      !params.reference.trim()
+    ) {
+      showMsg(
+        'submitMsg',
+        'Masukkan rujukan transaksi atau tulis TIADA.',
+        true
+      );
+      return;
+    }
+
+    if (receiptFile) {
+      try {
+        params.receiptDataUrl = await fileAsDataUrl(receiptFile);
+      } catch (err) {
+        showMsg('submitMsg', err.message, true);
+        return;
+      }
+    }
+
+    const b = document.getElementById('submitBtn');
+    b.disabled = true;
+
+    try {
+      await post(params);
+
+      showMsg(
+        'submitMsg',
+        'Permohonan dihantar. Semak Google Sheets atau hubungi admin untuk pengesahan.'
+      );
+
+      e.target.reset();
+
+      setTimeout(loadSummary, 1800);
+
+    } catch (err) {
+      showMsg('submitMsg', err.message, true);
+
+    } finally {
+      b.disabled = false;
+    }
+  }
+);
+
+function copyAccount() {
+  if (!navigator.clipboard) {
+    alert('Nombor akaun Maybank: 1630 4656 0244');
+    return;
+  }
+
+  navigator.clipboard.writeText('163046560244')
+    .then(() => alert('Nombor akaun disalin.'))
+    .catch(() => alert('Nombor akaun: 1630 4656 0244'));
+}
+
+function toggleAdmin() {
+  document.getElementById('adminLogin')
+    .classList.toggle('hidden');
+}
+
+async function adminLogin() {
+  if (!apiReady()) return;
+
+  adminPin = document.getElementById('pin').value;
+
+  try {
+    const d = await getJsonp({
+      action: 'adminRecords',
+      pin: adminPin
+    });
+
+    if (!d.ok) throw Error(d.error || 'Tidak dapat log masuk');
+
+    document.getElementById('adminPanel')
+      .classList.remove('hidden');
+
+    document.getElementById('adminToggle').textContent =
+      'Panel admin dibuka';
+
+    renderAdmin(d.records || []);
+
+    showMsg('adminMsg', 'Log masuk berjaya.');
+
+  } catch (e) {
+    adminPin = '';
+    showMsg('adminMsg', e.message, true);
+  }
+}
+
+function adminLogout() {
+  adminPin = '';
+
+  document.getElementById('pin').value = '';
+
+  document.getElementById('adminPanel')
+    .classList.add('hidden');
+
+  document.getElementById('adminToggle').textContent =
+    'Log masuk admin';
+}
+
+async function loadAdmin() {
+  if (!adminPin) return;
+
+  try {
+    const d = await getJsonp({
+      action: 'adminRecords',
+      pin: adminPin
+    });
+
+    if (!d.ok) throw Error(d.error || 'Gagal');
+
+    renderAdmin(d.records || []);
+
+  } catch (e) {
+    showMsg('adminMsg', e.message, true);
+  }
+}
+
+function renderAdmin(rows) {
+  document.getElementById('adminRows').innerHTML =
+    rows.length
+      ? rows.map(r => `
+        <tr>
+          <td>
+            ${dateText(r.createdAt)}<br>
+            <span class="notice">${escapeHtml(r.id)}</span>
+          </td>
+
+          <td>
+            <b>${r.type === 'INCOME'
+              ? 'Infak masuk'
+              : 'Penggunaan dana'}</b><br>
+            ${escapeHtml(r.submitter)}
+          </td>
+
+          <td>
+            ${escapeHtml(r.description)}<br>
+            <span class="notice">
+              Rujukan: ${escapeHtml(r.reference || '-')}
+            </span>
+
+            ${r.receiptUrl
+              ? `<br><a href="${escapeHtml(r.receiptUrl)}"
+                   target="_blank" rel="noopener">Buka resit</a>`
+              : ''}
+
+            ${r.adminNote
+              ? '<br>Nota: ' + escapeHtml(r.adminNote)
+              : ''}
+          </td>
+
+          <td>${money(r.amount)}</td>
+
+          <td>
+            <span class="status ${r.status}">${r.status}</span>
+
+            ${r.status === 'PENDING'
+              ? `<div class="record-actions" style="margin-top:8px">
+                   <button onclick="review('${r.id}','APPROVED')">
+                     Lulus
+                   </button>
+                   <button class="danger"
+                     onclick="review('${r.id}','REJECTED')">
+                     Tolak
+                   </button>
+                 </div>`
+              : ''}
+          </td>
+        </tr>
+      `).join('')
+      : '<tr><td colspan="5">Tiada rekod.</td></tr>';
+}
+
+async function review(id, decision) {
+  const note = prompt('Nota admin (pilihan):', '');
+
+  if (note === null) return;
+
+  try {
+    await post({
+      action: 'review',
+      pin: adminPin,
+      id,
+      decision,
+      note,
+      reviewer:
+        document.getElementById('reviewer').value ||
+        'Admin STAND HC'
+    });
+
+    alert(
+      'Arahan dihantar. Sila semak status di Google Sheets.'
+    );
+
+    setTimeout(() => {
+      loadAdmin();
+      loadSummary();
+    }, 1800);
+
+  } catch (e) {
+    alert(e.message);
+  }
+}
+
+async function makePdf() {
+  if (!adminPin) {
+    alert('Sila log masuk admin dahulu.');
+    return;
+  }
+
+  const month =
+    document.getElementById('reportMonth').value ||
+    new Date().toISOString().slice(0, 7);
+
+  try {
+    const d = await getAdminAction(
+      'monthlyPdf',
+      { month }
+    );
+
+    if (!d.ok) {
+      throw Error(d.error || 'Gagal menjana PDF');
+    }
+
+    showMsg('reportMsg', 'PDF dijana: ' + d.name);
+    window.open(d.url, '_blank');
+
+  } catch (e) {
+    showMsg('reportMsg', e.message, true);
+  }
+}
+
+async function makeExcel() {
+  if (!adminPin) {
+    alert('Sila log masuk admin dahulu.');
+    return;
+  }
+
+  try {
+    const d = await getAdminAction('exportExcel');
+
+    if (!d.ok) {
+      throw Error(d.error || 'Gagal eksport Excel');
+    }
+
+    showMsg('reportMsg', 'Excel dijana: ' + d.name);
+    window.open(d.url, '_blank');
+
+  } catch (e) {
+    showMsg('reportMsg', e.message, true);
+  }
+}
+
+loadSummary();
+</script>
+</body>
+</html>
